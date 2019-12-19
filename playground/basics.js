@@ -90,11 +90,6 @@
 // console.log(str.length);            // 11
 
 
-
-
-
-
-
 // function Person(firstName, lastName) {
 //     this.firstName = firstName;
 //     this.lastName = lastName;
@@ -127,11 +122,52 @@
 
 
 
+// Instance Method
+
+// var Shoe = {
+//     size : 8,
+//     gender : "Women"
+// }
+
+// var magicShoe = Object.create(Shoe);
+
+// console.log(Shoe.isPrototypeOf(magicShoe));
+// console.log(magicShoe.isPrototypeOf(Shoe));
+// console.log(Object.prototype.isPrototypeOf(Shoe));
+// console.log(Object.prototype.isPrototypeOf(magicShoe));
+
+// console.log(Shoe.hasOwnProperty('size'));
+// console.log(magicShoe.size);            // 8
+// console.log(magicShoe.hasOwnProperty('size'));
 
 
+// console.log(magicShoe.size);
+
+// magicShoe.size = 10;
+// delete magicShoe.size;          // {}
+// delete magicShoe.size;
+
+// // console.log(magicShoe);                     // {}
+// // console.log(magicShoe.size);               // 8
+// // magicShoe.size = 10;
+// console.log(magicShoe.size);            // 10
+// console.log(Shoe.size);            // ?
 
 
+// var str = "Some String";
+// var str1 = "Hello JS";
+// String.prototype.countAll = function(letter){
+//     var counter = 0;
+//     for(var i =0; i<this.length; i++){
+//         if(this.charAt(i).toUpperCase() === letter.toUpperCase()){
+//             counter++;
+//         }
+//     }
+//     return counter;
+// }
 
+// console.log(str.countAll('s'))          // 2
+// console.log(str1.countAll('l'))          // 
 
 
 
