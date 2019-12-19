@@ -58,9 +58,9 @@
 //         this.firstName = firstName;
 //         this.lastName = lastName;
 //     }
-    // walk(){
-        // console.log("Walking");
-    // }
+// walk(){
+// console.log("Walking");
+// }
 // }
 // class Student extends Person6{
 //     constructor(firstName, lastName, age){
@@ -171,3 +171,100 @@
 
 
 
+// FUNCTION
+
+// function add (){}
+
+// var addition = function (num1, num2){
+//     return num1 + num2;
+// }
+
+// console.log(addition(2,6));
+
+// function mystery(){
+//     var chooseNumber = function (){
+//         return 7;
+//     }
+//     return chooseNumber();
+//     var chooseNumber = function(){
+//         return 12;
+//     }
+// }
+
+// console.log(mystery());
+
+// var nestedFunc = mystery();
+// console.log(nestedFunc());          // ?
+
+
+// Closures : 
+
+// function testClosure(){
+//     var x = 4;
+//     return function(){
+//         return ++x;
+//     }
+// }
+
+// var nestedFunc = testClosure();
+// console.log(nestedFunc());          // 5
+// console.log(nestedFunc());          // ?
+// console.log(nestedFunc());          // ?
+// console.log(nestedFunc());          // ?
+
+
+
+
+// var myVar = 100;
+
+// function a(){
+//     var myVar = 102;
+//     function b(){
+//         console.log(myVar);             // ?
+//     }
+//     b();
+// }
+
+// a();
+
+
+// ES5
+// var user = {
+//     firstName : "Foo",
+//     lastName : "Bar",
+//     fullName : function(){
+//         var self = this;
+//         function nested(){
+//             console.log(this);          // Node Global Env / Window object
+//             return self.firstName + " "+  self.lastName; 
+//         }
+//         return nested();
+//     }
+// }
+
+// console.log(user.fullName());
+
+
+// var user = {
+//     firstName : "Foo",
+//     lastname : "Bar",
+//     fullName : function(){
+//         var nestedFunc = () => {
+//             return this.firstName + " " + this.lastname; 
+//         }
+//         return nestedFunc();
+//     }
+// }
+// console.log(user.fullName());
+
+// ES5
+
+var numbers = [2, 3, 4, 5, 6];
+var doubleArray = numbers.map(function (value, index, array) {
+    return value * 2;
+})
+console.log(doubleArray);
+
+// ES6
+var tripleArray = numbers.map(value => value * 3);
+console.log(tripleArray);
