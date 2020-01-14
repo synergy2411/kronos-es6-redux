@@ -244,27 +244,3 @@
 
 // console.log(user.fullName());
 
-
-// var user = {
-//     firstName : "Foo",
-//     lastname : "Bar",
-//     fullName : function(){
-//         var nestedFunc = () => {
-//             return this.firstName + " " + this.lastname; 
-//         }
-//         return nestedFunc();
-//     }
-// }
-// console.log(user.fullName());
-
-// ES5
-
-var numbers = [2, 3, 4, 5, 6];
-var doubleArray = numbers.map(function (value, index, array) {
-    return value * 2;
-})
-console.log(doubleArray);
-
-// ES6
-var tripleArray = numbers.map(value => value * 3);
-console.log(tripleArray);
