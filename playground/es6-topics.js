@@ -200,32 +200,201 @@
 
 
 // SPREAD
-let arr = [3,4,5];
+// let arr = [3,4,5];
 
-let newArr = [1,2,arr];
+// let newArr = [1,2,arr];
 
 // console.log(newArr);            // ? [1,2,[3,4,5]]      [1,2,3,4,5]
 
 
-let obj = {
-    firstName : "Foo",
-    lastName : "Bar"
-}
+// let obj = {
+//     firstName : "Foo",
+//     lastName : "Bar",
+//     middleName : "Bam"
+// }
 
-let newObj = {
-    ...obj,
-    age : 32
-}
+// let newObj = {
+//     ...obj,
+//     age : 32,
+//     middleName : "New M Name"
+// }
 
-obj.lastName = "Changed Name";
+// obj.lastName = "Changed Name";
 
 // console.log(newObj);
 
 
-let targetObj = Object.assign({}, obj, {
-        email : 'test@test.com', 
-        firstName : "New F Name"
-    })
+// let targetObj = Object.assign({}, obj, {
+//         email : 'test@test.com', 
+//         firstName : "New F Name"
+//     })
 
-console.log(targetObj);
+// console.log(targetObj);
+
+
+
+
+
+
+
+
+
+
+// DESTRUCTURING
+
+// Array
+
+// let fruits = ["Apple", "Banana", "Orange", "Mango"];
+
+// let  [el1, , el3, el4] = fruits;
+
+// console.log(el3);           // ?
+
+// Object 
+
+// let myModule = {
+//     drawText: text => console.log("Drawing " + text),
+//     darwCircle: r => console.log(Math.PI * r * r)
+// }
+
+// let { darwCircle: dc, drawText: dt } = myModule;
+
+// drawText("Sample Text");
+// dt("Some Text");
+
+
+// let user = {
+//     firstName: "Foo",
+//     age: 32,
+//     friends: ["Bar", "Bam", "Baz"],
+//     address: {
+//         street: "201 Main Road",
+//         city: "Noida"
+//     }
+// }
+
+// let {
+//     firstName: fn,
+//     age,
+//     friends: [f1, f2, f3],
+//     address: {
+//         street: st,
+//         city: ct
+//     }
+// } = user;
+
+// console.log(fn, age, f1, f2, f3, st, ct);
+
+
+
+// let user = {
+//     firstName: "Foo",
+//     age: 32,
+//     friends: [
+//         { name: "Bas", age: 34 }, 
+//         { name: "Baz", age: 35 }
+//     ],
+//     address: {
+//         street: "201 Main Road",
+//         city: "Noida"
+//     }
+// }
+
+
+
+// TEMPLATE STRING
+
+// let username = "Ankush";
+// let age = 32;
+
+// console.log(`Hello from ${username}, 
+
+// I'm ${age} years old!`);
+
+// let invoiceNum = 1234;
+// let custName = "Kronos";
+
+// function process(args, ...segments){
+//     console.log(args, segments);
+// }
+
+// process `Processing the invoice Number : ${invoiceNum} for the client ${custName}`
+
+
+
+
+
+
+
+// SYMBOL
+
+// let id1 = Symbol("id");
+// let id2 = Symbol("id");
+
+// console.log("COMPARE : ", id1 === id2);
+
+// let user = {
+//     name : "Foo"
+// }
+// user[id1] =101;
+
+// console.log(user);
+
+// for(let key in user){
+//     console.log(key);
+// }
+
+// let arr = [2,3,4];
+
+// arr[Symbol.iterator] = false;
+
+// for(let item of arr){
+//     console.log(item);
+// }
+
+// let it = arr[Symbol.iterator]();
+
+// console.log(it.next());
+// console.log(it.next());
+// console.log(it.next());
+// console.log(it.next());
+
+
+// Well known Symbols
+
+// let user = {
+//     age : 32
+// }
+
+// user[Symbol.toPrimitive] = function(hint){
+//     if(hint === 'number'){
+//         return 32;
+//     }
+//     return null;
+// }
+
+// console.log(user);      // {age : 32}
+// console.log(+user);      // NaN
+
+// console.log(typeof (+"10") === 'number');
+
+
+// let arr = [3,4,5];
+// arr[Symbol.isConcatSpreadable] = false;
+
+// console.log([1,2].concat(arr));
+
+
+let regEx = /ByeBye/;
+let greet = "/Hello/";
+
+regEx[Symbol.match] = false;
+
+console.log(greet.startsWith(regEx));
+
+
+
+
+
+
 
