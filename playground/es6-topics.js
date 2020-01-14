@@ -61,33 +61,45 @@
 // PROMISES
 
 // Producer code
-var serverDelay = () => {
-    var promise = new Promise((resolve, reject)=>{
-        setTimeout(()=>{
-            resolve({"data" : "Success"});
-            // reject(new Error("Something bad happened."))
-        }, 3000);
+// var serverDelay = () => {
+//     var promise = new Promise((resolve, reject)=>{
+//         setTimeout(()=>{
+//             resolve({"data" : "Success"});
+//             // reject(new Error("Something bad happened."))
+//         }, 3000);
+//     })
+//     return promise;
+// }
+
+// // Consumer Code
+// serverDelay().then((response)=>{
+//     console.log("RESPONSE : ", response)
+//     return 'The response from the server is' + response['data'];
+// }).then(resp => {
+//     console.log(resp);
+// })
+//   .catch(err => console.log(err))  ;
+
+// console.log("Promise is working...")
+
+
+
+var delay = ms => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Here the data comes.")
+        }, ms)
     })
-    return promise;
+}
+// Consumer Code
+delay(2000).then(resp => console.log("SERVER RESPONSE : " + resp));
+
+// Consumer Code by Async ... await
+async function callDelay(){
+    var data = await delay(2000);
+    console.log("ASYNC FUNCTION :", data)
 }
 
-// Consumer Code
-serverDelay().then((response)=>{
-    console.log("RESPONSE : ", response)
-    return 'The response from the server is' + response['data'];
-}).then(resp => {
-    console.log(resp);
-})
-  .catch(err => console.log(err))  ;
-
-console.log("Promise is working...")
-
-
-
-
-
-
-
-
+callDelay();
 
 
