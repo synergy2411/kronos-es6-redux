@@ -499,3 +499,34 @@
 // console.log(it.next());
 // console.log(it.next());
 // console.log(it.next());
+
+
+
+
+
+
+
+
+
+
+// CLASS
+class Person{
+    constructor(firstName, lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+}
+
+class Student extends Person{
+    constructor(firstName, lastName, age){
+        super(firstName, lastName);
+        this.lastName = lastName;
+    }
+
+    greet(){
+        return "Hello from " + this.firstName + " " + this.lastName;
+    }
+}
+
+let foo = new Student("Foo", "Bar", 32);
+console.log(foo.greet());
