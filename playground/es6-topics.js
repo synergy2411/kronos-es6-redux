@@ -385,16 +385,117 @@
 // console.log([1,2].concat(arr));
 
 
-let regEx = /ByeBye/;
-let greet = "/Hello/";
+// let regEx = /ByeBye/;
+// let greet = "/Hello/";
 
-regEx[Symbol.match] = false;
+// regEx[Symbol.match] = false;
 
-console.log(greet.startsWith(regEx));
-
-
+// console.log(greet.startsWith(regEx));
 
 
+// let id  = Symbol.for("NewID");
+// console.log(typeof id);
+
+// console.log(Symbol.keyFor(id));
 
 
 
+// Maps
+
+// let question = new Map();
+
+// question.set("question", "What is latest Javascript officially called ?");
+// question.set(1, "ES5")
+// question.set(2, "ES6")
+// question.set(3, "ES2015")
+// question.set(4, "ES7")
+// question.set("correct", 3);
+// question.set(true , "Yipee, Correct Answere.")
+// question.set(false , "Try Again.");
+
+// console.log(question.get("question"));
+
+// for(let [key, value] of question.entries()){
+//     if(typeof key === 'number'){
+//         console.log(`ANS ${key} : ${value}`);
+//     }
+// }
+
+// process.stdin.on("readable", () => {
+//     let chunk = process.stdin.read();
+//     console.log(question.get(parseInt(chunk.toString()) === question.get("correct")))
+// })
+
+
+
+
+
+
+// Iterators
+
+// let user = {
+//     name: "Foo",
+//     age: 32,
+//     [Symbol.iterator]: function () {
+//         return {
+//             next: function () {
+//                 return {
+//                     value: 101, done: false
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// for (let item of user) {
+//     console.log(item);
+// }
+
+
+// ID Maker Iterator
+
+// let idMaker ={
+//     [Symbol.iterator] : function(){
+//         let id = 101;
+//         return {
+//             next : function(){
+//                 let value = id >= 110 ? undefined : id++;
+//                 let done = !value;
+//                 return {
+//                     done , value 
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// let it = idMaker[Symbol.iterator]();
+// let result = it.next();
+// while(!result.done){
+//     console.log(result)
+//     result = it.next();
+// }
+
+// for(let id of idMaker){
+//     console.log(id);
+// }
+
+
+// Range Maker
+// function* process(start, end, step) {
+//     for (let i = start; i <= end; i += step){
+//         yield i;
+//     }
+// }
+
+// for(let range of process(200, 220, 2)){
+//     console.log(range);
+// }
+
+// const it = process(200, 210, 2);
+// console.log(it.next());
+// console.log(it.next());
+// console.log(it.next());
+// console.log(it.next());
+// console.log(it.next());
+// console.log(it.next());
