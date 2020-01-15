@@ -190,7 +190,59 @@ process.umask = function() { return 0; };
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.asyncDecrement = exports.decrement = exports.addCounter = exports.SUBSTRACT_COUNTER = exports.ADD_COUNTER = exports.DECREMENT = exports.INCREMENT = void 0;
+var INCREMENT = "INCREMENT";
+exports.INCREMENT = INCREMENT;
+var DECREMENT = "DECREMENT";
+exports.DECREMENT = DECREMENT;
+var ADD_COUNTER = "ADD_COUNTER";
+exports.ADD_COUNTER = ADD_COUNTER;
+var SUBSTRACT_COUNTER = "SUBSTRACT_COUNTER"; // Action Creators
+
+exports.SUBSTRACT_COUNTER = SUBSTRACT_COUNTER;
+
+var addCounter = function addCounter(payload) {
+  return {
+    type: ADD_COUNTER,
+    payload: payload
+  };
+};
+
+exports.addCounter = addCounter;
+
+var decrement = function decrement() {
+  return {
+    type: DECREMENT
+  };
+}; // Async Action Creator
+
+
+exports.decrement = decrement;
+
+var asyncDecrement = function asyncDecrement() {
+  return function (dispatch, getState) {
+    setTimeout(function () {
+      dispatch(decrement());
+    }, 3000);
+  };
+};
+
+exports.asyncDecrement = asyncDecrement;
+},{}],3:[function(require,module,exports){
+"use strict";
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.counterReducer = void 0;
+
+var actionTypes = _interopRequireWildcard(require("../action/actions"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -199,7 +251,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var initialState = {
-  counter: 0
+  counter: 0,
+  result: []
 };
 
 var counterReducer = function counterReducer() {
@@ -207,10 +260,26 @@ var counterReducer = function counterReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case "INCREMENT":
-      return _objectSpread({}, state, {
-        counter: state.counter + 1
-      });
+    case actionTypes.INCREMENT:
+      {
+        return _objectSpread({}, state, {
+          counter: state.counter + 1
+        });
+      }
+
+    case actionTypes.ADD_COUNTER:
+      {
+        return _objectSpread({}, state, {
+          counter: state.counter + action.payload
+        });
+      }
+
+    case actionTypes.DECREMENT:
+      {
+        return _objectSpread({}, state, {
+          counter: state.counter - 1
+        });
+      }
 
     default:
       return state;
@@ -218,27 +287,88 @@ var counterReducer = function counterReducer() {
 };
 
 exports.counterReducer = counterReducer;
-},{}],3:[function(require,module,exports){
+},{"../action/actions":2}],4:[function(require,module,exports){
 "use strict";
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var _redux = require("redux");
 
+var _reduxThunk = _interopRequireDefault(require("redux-thunk"));
+
 var _counter = require("./store/reducers/counter.reducer");
 
-var store = (0, _redux.createStore)(_counter.counterReducer);
+var actionTypes = _interopRequireWildcard(require("./store/action/actions"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || _redux.compose; // const logger = store => next => action =>{
+// }
+
+var logger = function logger(store) {
+  return function (next) {
+    return function (action) {
+      console.log("[LOGGER - STATE]", store.getState());
+      console.log("[LOGGER - ACTION]", action);
+      return next(action);
+    };
+  };
+};
+
+var updateUI = function updateUI() {
+  $("#counter").html(store.getState().counter);
+};
+
+var store = (0, _redux.createStore)(_counter.counterReducer, composeEnhancers((0, _redux.applyMiddleware)(logger)));
 $(document).ready(function () {
   console.log("[INITIAL STATE]", store.getState());
-  $("#counter").val(store.getState().counter);
+  $("#counter").html(store.getState().counter);
   store.subscribe(function () {
     console.log("[SUBSCRIPTION]", store.getState());
+    updateUI();
   });
   $("#btnIncrement").on("click", function () {
+    // store.dispatch({type : "INCREMENT"});
     store.dispatch({
-      type: "INCREMENT"
+      type: actionTypes.INCREMENT
     });
   });
+  $("#btnAdd").on("click", function () {
+    store.dispatch(actionTypes.addCounter(10));
+  });
+  $("#btnDecrement").on("click", function () {
+    store.dispatch(actionTypes.asyncDecrement());
+  });
 });
-},{"./store/reducers/counter.reducer":2,"redux":4}],4:[function(require,module,exports){
+},{"./store/action/actions":2,"./store/reducers/counter.reducer":3,"redux":6,"redux-thunk":5}],5:[function(require,module,exports){
+'use strict';
+
+exports.__esModule = true;
+function createThunkMiddleware(extraArgument) {
+  return function (_ref) {
+    var dispatch = _ref.dispatch,
+        getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        if (typeof action === 'function') {
+          return action(dispatch, getState, extraArgument);
+        }
+
+        return next(action);
+      };
+    };
+  };
+}
+
+var thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+exports['default'] = thunk;
+},{}],6:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -916,7 +1046,7 @@ exports.compose = compose;
 exports.createStore = createStore;
 
 }).call(this,require('_process'))
-},{"_process":1,"symbol-observable":5}],5:[function(require,module,exports){
+},{"_process":1,"symbol-observable":7}],7:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -948,7 +1078,7 @@ if (typeof self !== 'undefined') {
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./ponyfill.js":6}],6:[function(require,module,exports){
+},{"./ponyfill.js":8}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -972,4 +1102,4 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
-},{}]},{},[3]);
+},{}]},{},[4]);

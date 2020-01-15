@@ -2,4 +2,10 @@
 // module.exports = {}
 
 // ES6 Module export
-export const MAGIC_NUMBER = Math.round(Math.random() * 100);
+
+//named export
+export const MAGIC_NUMBER = Math.round(Math.random() * 100);        
+
+class Student{}
+// Default export
+export default Student;
