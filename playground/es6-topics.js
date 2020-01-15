@@ -510,23 +510,51 @@
 
 
 // CLASS
-class Person{
-    constructor(firstName, lastName){
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-}
+// class Person {
+//     constructor(firstName, lastName) {
+//         this.firstName = firstName;
+//         this.lastName = lastName;
+//     }
+// }
 
-class Student extends Person{
-    constructor(firstName, lastName, age){
-        super(firstName, lastName);
-        this.lastName = lastName;
-    }
+// class Student extends Person {
+//     constructor(firstName, lastName, age) {
+//         super(firstName, lastName);
+//         this.lastName = lastName;
+//     }
 
-    greet(){
-        return "Hello from " + this.firstName + " " + this.lastName;
-    }
-}
+//     greet() {
+//         return "Hello from " + this.firstName + " " + this.lastName;
+//     }
+// }
 
-let foo = new Student("Foo", "Bar", 32);
-console.log(foo.greet());
+// let foo = new Student("Foo", "Bar", 32);
+// console.log(foo.greet());
+
+
+
+// fetch("https://maps.googleapis.com/maps/api/geocode/json?address=mumbai&key=AIzaSyAOIA3C43yp1OJPtEIMVNmdWpc_v5ecXx0")
+//     .then(response => response.json())
+//     .then(resp => console.log(resp))
+//     .catch(err => console.log(err))
+
+// fetch("https://api.darksky.net/forecast/473fe696d21e65026547b2d50b56014c/37.8267,-122.4233")
+//     .then(response => response.json())
+//     .then(resp => console.log(resp))
+//     .catch(err => console.log(err))
+
+
+const myHeaders = new Headers();
+
+const myRequest = new Request('https://api.darksky.net/forecast/473fe696d21e65026547b2d50b56014c/37.8267,-122.4233', {
+    method: 'GET',
+    headers: myHeaders,
+    mode: 'no-cors'
+});
+
+fetch(myRequest)
+    .then(response => {
+        console.log("RESPONSE : ", response.json());
+        return response.json()})
+    .then(resp => console.log(resp))
+    .catch(err => console.log(err))
