@@ -5,7 +5,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.counterReducer = void 0;
+exports.resultReducer = void 0;
 
 var actionTypes = _interopRequireWildcard(require("../action/actions"));
 
@@ -19,33 +19,31 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 var initialState = {
-  counter: 0
+  result: []
 };
 
-var counterReducer = function counterReducer() {
+var resultReducer = function resultReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case actionTypes.INCREMENT:
+    case actionTypes.STORE_ITEM:
       {
-        return _objectSpread({}, state, {
-          counter: state.counter + 1
-        });
-      }
+        var arr = _toConsumableArray(state.result);
 
-    case actionTypes.ADD_COUNTER:
-      {
+        arr.push(action.payload);
+        console.log(arr, state);
         return _objectSpread({}, state, {
-          counter: state.counter + action.payload
-        });
-      }
-
-    case actionTypes.DECREMENT:
-      {
-        return _objectSpread({}, state, {
-          counter: state.counter - 1
+          result: arr
         });
       }
 
@@ -54,4 +52,4 @@ var counterReducer = function counterReducer() {
   }
 };
 
-exports.counterReducer = counterReducer;
+exports.resultReducer = resultReducer;

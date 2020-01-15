@@ -190,16 +190,27 @@ process.umask = function() { return 0; };
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.asyncDecrement = exports.decrement = exports.addCounter = exports.SUBSTRACT_COUNTER = exports.ADD_COUNTER = exports.DECREMENT = exports.INCREMENT = void 0;
+exports.asyncDecrement = exports.decrement = exports.addCounter = exports.storeItem = exports.STORE_ITEM = exports.SUBSTRACT_COUNTER = exports.ADD_COUNTER = exports.DECREMENT = exports.INCREMENT = void 0;
 var INCREMENT = "INCREMENT";
 exports.INCREMENT = INCREMENT;
 var DECREMENT = "DECREMENT";
 exports.DECREMENT = DECREMENT;
 var ADD_COUNTER = "ADD_COUNTER";
 exports.ADD_COUNTER = ADD_COUNTER;
-var SUBSTRACT_COUNTER = "SUBSTRACT_COUNTER"; // Action Creators
-
+var SUBSTRACT_COUNTER = "SUBSTRACT_COUNTER";
 exports.SUBSTRACT_COUNTER = SUBSTRACT_COUNTER;
+var STORE_ITEM = "STORE_ITEM"; // Action Creators
+
+exports.STORE_ITEM = STORE_ITEM;
+
+var storeItem = function storeItem(payload) {
+  return {
+    type: STORE_ITEM,
+    payload: payload
+  };
+};
+
+exports.storeItem = storeItem;
 
 var addCounter = function addCounter(payload) {
   return {
@@ -251,8 +262,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var initialState = {
-  counter: 0,
-  result: []
+  counter: 0
 };
 
 var counterReducer = function counterReducer() {
@@ -292,11 +302,69 @@ exports.counterReducer = counterReducer;
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.resultReducer = void 0;
+
+var actionTypes = _interopRequireWildcard(require("../action/actions"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+var initialState = {
+  result: []
+};
+
+var resultReducer = function resultReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case actionTypes.STORE_ITEM:
+      {
+        var arr = _toConsumableArray(state.result);
+
+        arr.push(action.payload);
+        console.log(arr, state);
+        return _objectSpread({}, state, {
+          result: arr
+        });
+      }
+
+    default:
+      return state;
+  }
+};
+
+exports.resultReducer = resultReducer;
+},{"../action/actions":2}],5:[function(require,module,exports){
+"use strict";
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 var _redux = require("redux");
 
 var _reduxThunk = _interopRequireDefault(require("redux-thunk"));
 
 var _counter = require("./store/reducers/counter.reducer");
+
+var _result = require("./store/reducers/result.reducer");
 
 var actionTypes = _interopRequireWildcard(require("./store/action/actions"));
 
@@ -309,6 +377,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || _redux.compose; // const logger = store => next => action =>{
 // }
 
+var rootReducer = (0, _redux.combineReducers)({
+  ctr: _counter.counterReducer,
+  res: _result.resultReducer
+});
+
 var logger = function logger(store) {
   return function (next) {
     return function (action) {
@@ -320,16 +393,28 @@ var logger = function logger(store) {
 };
 
 var updateUI = function updateUI() {
-  $("#counter").html(store.getState().counter);
+  $("#counter").html(store.getState().ctr.counter);
 };
 
-var store = (0, _redux.createStore)(_counter.counterReducer, composeEnhancers((0, _redux.applyMiddleware)(logger)));
+var createList = function createList() {
+  var arr = store.getState().res.result;
+
+  if (arr.length) {
+    $(".list-group").find("li").remove();
+    arr.forEach(function (el) {
+      $(".list-group").append("<li class='list-group-item'>" + el + "</li>");
+    });
+  }
+};
+
+var store = (0, _redux.createStore)(rootReducer, composeEnhancers((0, _redux.applyMiddleware)(logger, _reduxThunk["default"])));
 $(document).ready(function () {
-  console.log("[INITIAL STATE]", store.getState());
-  $("#counter").html(store.getState().counter);
+  // console.log("[INITIAL STATE]" , store.getState());
+  $("#counter").html(store.getState().ctr.counter);
   store.subscribe(function () {
     console.log("[SUBSCRIPTION]", store.getState());
     updateUI();
+    createList();
   });
   $("#btnIncrement").on("click", function () {
     // store.dispatch({type : "INCREMENT"});
@@ -343,8 +428,11 @@ $(document).ready(function () {
   $("#btnDecrement").on("click", function () {
     store.dispatch(actionTypes.asyncDecrement());
   });
+  $("#btnStore").on("click", function () {
+    store.dispatch(actionTypes.storeItem(store.getState().ctr.counter));
+  });
 });
-},{"./store/action/actions":2,"./store/reducers/counter.reducer":3,"redux":6,"redux-thunk":5}],5:[function(require,module,exports){
+},{"./store/action/actions":2,"./store/reducers/counter.reducer":3,"./store/reducers/result.reducer":4,"redux":7,"redux-thunk":6}],6:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -368,7 +456,7 @@ var thunk = createThunkMiddleware();
 thunk.withExtraArgument = createThunkMiddleware;
 
 exports['default'] = thunk;
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -1046,7 +1134,7 @@ exports.compose = compose;
 exports.createStore = createStore;
 
 }).call(this,require('_process'))
-},{"_process":1,"symbol-observable":7}],7:[function(require,module,exports){
+},{"_process":1,"symbol-observable":8}],8:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -1078,7 +1166,7 @@ if (typeof self !== 'undefined') {
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./ponyfill.js":8}],8:[function(require,module,exports){
+},{"./ponyfill.js":9}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1102,4 +1190,4 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
-},{}]},{},[4]);
+},{}]},{},[5]);

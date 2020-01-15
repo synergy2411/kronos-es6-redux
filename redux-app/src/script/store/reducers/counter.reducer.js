@@ -1,7 +1,7 @@
 import * as actionTypes from '../action/actions';
 
 const initialState = {
-    counter: 0, result : []
+    counter: 0, 
 }
 
 export const counterReducer = (state = initialState, action) => {
@@ -24,6 +24,7 @@ export const counterReducer = (state = initialState, action) => {
                 counter : state.counter - 1
             }
         }
+       
         default:
             return state;
     }
