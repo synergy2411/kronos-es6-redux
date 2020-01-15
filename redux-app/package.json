@@ -4,11 +4,17 @@
   "description": "Redux app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build" : "babel src -d build",
+    "browserify" : "browserify ./build/script -o bundle.js"
   },
   "author": "Summit khandelwal",
   "license": "ISC",
   "dependencies": {
     "redux": "^4.0.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3"
   }
 }

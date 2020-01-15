@@ -224,10 +224,10 @@
 // console.log(newObj);
 
 
-// let targetObj = Object.assign({}, obj, {
-//         email : 'test@test.com', 
-//         firstName : "New F Name"
-//     })
+let targetObj = Object.assign({}, obj, {
+        email : 'test@test.com', 
+        firstName : "New F Name"
+    })
 
 // console.log(targetObj);
 
